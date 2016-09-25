@@ -1,0 +1,31 @@
+<highchart id="chart1" config="chartConfig"></highchart>
+
+<div class="container-fluid">
+	<div class="col-xs-12 col-sm-6" ng-repeat="search in searches">
+		<div class="panel panel-default" >
+			<div class="panel-heading" ng-show="!search.searched">
+				<input ng-hide="search.found" type="text" ng-model="search.symbol" placeholder="Stock Symbol"/><button ng-click="removeStock($index)" type="button" class="close">&times</button>
+			</div>
+			<div class="panel-heading" ng-hide="!search.searched">
+				{{search.heading}} <span ng-show="search.found"> (${{search.change}}) </span><span ng-show="checkChange(search.change) && search.found" class="glyphicon glyphicon-chevron-up"></span><span ng-hide="checkChange(search.change) || !search.found" class="glyphicon glyphicon-chevron-down"></span> 
+				<button ng-click="removeStock($index)" type="button" class="close">&times</button>
+			</div>
+			<div ng-show="search.found" class="panel-body">
+				<div  class="container-fluid">
+					<div class="row">
+						Max: ${{search.max.value}} ({{search.max.date}})
+					</div>
+					<br>
+					<div class="row">
+						Min: ${{search.min.value}} ({{search.min.date}})
+					</div>
+					<span class="pull-right" ng-show="search.searched"><a ng-click="editStock($index)">edit</a></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12">
+		<button class="btn btn-primary" ng-click="makeChartLocal()">Plot Stocks</button>
+		<button class="btn btn-success" ng-disabled="searches.length > 5" ng-click="addStock()">+</button>
+	</div>
+</div>
