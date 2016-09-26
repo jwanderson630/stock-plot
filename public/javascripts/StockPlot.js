@@ -16,7 +16,7 @@ app.config(function($routeProvider){
 		});
 });
 
-app.controller('mainController', function($scope, $http){
+app.controller('mainController', function($scope, $https){
 	$scope.searches = [];
 	
 	$scope.socket = io();
@@ -101,7 +101,7 @@ app.controller('mainController', function($scope, $http){
 	};
 
 	$scope.getChartData = function(symbol,index){
-		$http.get('https://dev.markitondemand.com/MODApis/Api/v2/InteractiveChart/json?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A367%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22' + symbol + '%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D')
+		$https.get('http://dev.markitondemand.com/MODApis/Api/v2/InteractiveChart/json?parameters=%7B%22Normalized%22%3Afalse%2C%22NumberOfDays%22%3A367%2C%22DataPeriod%22%3A%22Day%22%2C%22Elements%22%3A%5B%7B%22Symbol%22%3A%22' + symbol + '%22%2C%22Type%22%3A%22price%22%2C%22Params%22%3A%5B%22c%22%5D%7D%5D%7D')
 			.then(function(data){
 				var dates = data.data.Dates.map(Date.parse);
 				var seriesData = [];
